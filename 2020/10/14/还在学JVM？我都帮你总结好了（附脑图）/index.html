@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>非科班的科班</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="非科班的科班"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="非科班的科班"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta description="一个钻研技术和热爱技术分享的博主"><meta property="og:type" content="blog"><meta property="og:title" content="非科班的科班"><meta property="og:url" content="https://removeif.github.io/"><meta property="og:site_name" content="非科班的科班"><meta property="og:description" content="一个钻研技术和热爱技术分享的博主"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://pic3.zhimg.com/v2-bfd9b8d48b2d2ef0bcd80d2cc4cc6604_xl.jpg"><meta property="article:published_time" content="2020-10-14T10:01:31.281Z"><meta property="article:modified_time" content="2020-10-14T10:01:38.453Z"><meta property="article:author" content="黎杜"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://pic3.zhimg.com/v2-bfd9b8d48b2d2ef0bcd80d2cc4cc6604_xl.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/"},"headline":"非科班的科班","image":[],"datePublished":"2020-10-14T10:01:31.281Z","dateModified":"2020-10-14T10:01:38.453Z","author":{"@type":"Person","name":"黎杜"},"description":"本文脑图 运行时数据区模型在java虚拟机中把内存分为若干个不同的数据区域。这些区域有各自的用途，有些区域随着虚拟机进程启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。在JVM中主要分为以下几个区域：  程序计数器 方法区 虚拟机栈 本地方法栈 java堆   程序计数器程序计数器是内存中较小的一部分区域，是当前线程执行的字节码的行号指示器。在字节码解释器工作时通过计数器的值来选取下一"}</script><link rel="canonical" href="http://example.com/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.2.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="非科班的科班" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a><a class="navbar-item" href="/friend">友情</a><a class="navbar-item" href="/message">留言</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/liduchang?tab=repositories"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2020-10-14  <a class="commentCountImg" href="/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>24 m  <i class="fas fa-pencil-alt"> </i>3.6 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h3 id="本文脑图"><a href="#本文脑图" class="headerlink" title="本文脑图"></a>本文脑图</h3><p><img src="https://img-blog.csdnimg.cn/20200325201535799.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70#pic_center"></p>
+<h3 id="运行时数据区模型"><a href="#运行时数据区模型" class="headerlink" title="运行时数据区模型"></a>运行时数据区模型</h3><p>在java虚拟机中把内存分为若干个不同的数据区域。这些区域有各自的用途，有些区域随着虚拟机进程启动而存在，有些区域则依赖用户线程的启动和结束而建立和销毁。在JVM中主要分为以下几个区域：</p>
+<ol>
+<li>程序计数器</li>
+<li>方法区</li>
+<li>虚拟机栈</li>
+<li>本地方法栈</li>
+<li>java堆</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200325205252427.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>程序计数器是内存中较小的一部分区域，是当前线程执行的字节码的行号指示器。在字节码解释器工作时通过计数器的值来选取下一条指令。</p>
+<blockquote>
+<p><strong>为什么需要计数器？</strong><br>多线程情况下，一条线程中有多个指令，为了使线程切换可以恢复到正确执行位置，每个线程都具有各自独立的程序计数器，所以该区域是非线程共享的内存区域。</p>
+</blockquote>
+<p>如果执行的是Java方法，计数器记录的是正在执行的字节码指令的地址；若执行的是Native方法，计数器存储为空。<strong>这块内存区域是虚拟机规范中唯一没有OutOfMemoryError的区域。</strong></p>
+<p>我们可以得出程序计数器主要有两个作用：</p>
+<ol>
+<li>字节码解释器通过改变程序计数器来依次读取指令，从而实现代码的流程控制，如：顺序执行、选择、循环、异常处理。</li>
+<li>在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪儿了。</li>
+</ol>
+<h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h4><p>方法区也称”<code>永久代</code>“，它用于存储虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，是各个线程共享的内存区域。</p>
+<p>在JDK8之前的HotSpot JVM，存放这些”永久的”的区域叫做“<code>永久代(permanent generation)</code>”。永久代是一片连续的堆空间，在JVM启动之前通过在命令行设置参数<code>-XX:MaxPermSize</code>来设定永久代最大可分配的内存空间，默认大小是64M（64位JVM默认是85M）。</p>
+<p>方法区或永生代相关设置</p>
+<ul>
+<li><code>-XX:PermSize=64MB</code> 最小尺寸，初始分配</li>
+<li><code>-XX:MaxPermSize=256MB</code> 最大允许分配尺寸，</li>
+<li>按需分配<code>XX:+CMSClassUnloadingEnabled</code>  </li>
+<li><code>-XX:+CMSPermGenSweepingEnabled</code> 设置垃圾不回收</li>
+<li><code>-server</code>选项下默认<code>MaxPermSize为64m</code>，<code>-client</code>选项下默认<code>MaxPermSize为32m</code></li>
+</ul>
+<p>java虚拟机规范堆方法去区限制非常的宽松，可以不选择垃圾回收，以及不需要连续的内存和可扩展的大小。这个区域主要是针对于<strong>常量池的回收以及对类型的卸载</strong>，当方法区无法分配到足够的内存的时候也会抛出OOM。</p>
+<h4 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h4><p>虚拟机栈是每个java方法的内存模型：每个方法被执行的时候都会创建一个”栈帧”,用于存储<strong>局部变量表(包括参数)、操作栈、方法出口</strong>等信息。每个方法被调用到执行完的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>平时说的栈一般指局部变量表部分。栈帧对应的结构图，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200325215111988.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70"><br>局部变量表所需要的空间在编译期完成分配，当执行一个方法时，该方法需要在栈帧中分配多大的局部变量表的空间完全是可以确定的，因此在方法运行的期间不会改变局部变量表的大小。</p>
+<p>初级程序员可能笼统的将Java内存分为<strong>堆内存</strong>和<strong>栈内存</strong>时，该区域就是常说的栈内存，该区域的局部变量表存放<strong>基本类型、对象的引用类型</strong>，在对象的引用类型中存储的是指向<strong>对象的地址</strong>。</p>
+<p>该区域会出现两种异常</p>
+<ol>
+<li>当线程请求的栈深度大于虚拟机所允许的深度，就会抛出<code>StackOverflowError</code>异常。</li>
+<li>一般虚拟机的内存都是<strong>动态扩展</strong>的，但是有可能动态的扩展还是配不到足够的内存，就会抛出OOM异常。</li>
+</ol>
+<h4 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h4><p>本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java方法（也就是字节码）服务。</p>
+<p>本地方法栈为虚拟机使用到的native方法服务，可能底层调用的c或者c++,我们打开jdk安装目录可以看到也有很多用c编写的文件，可能就是native方法所调用的c代码。</p>
+<h4 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h4><p><code>Java 堆（Java Heap</code>）是Java 虚拟机所管理的<strong>内存中最大的一块</strong>。Java 堆是被<strong>所有线程共享</strong>的一块内存区域，在虚拟机启动时创建。</p>
+<p>此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。堆内存是<strong>所有线程共有的</strong>，可以分为两个部分：<strong>年轻代</strong>和<strong>老年代</strong>。</p>
+<blockquote>
+<p>注意:它是所有线程共享的，它的目的是存放对象实例。同时它也是GC所管理的主要区域，因此常被称为<strong>GC堆</strong>。根据虚拟机规范，Java堆可以存在物理上不连续的内存空间，就像磁盘空间只要逻辑是连续的即可。它的内存大小可以设为固定大小，也可以扩展。当前主流的虚拟机如HotPot都能按扩展实现(通过设置 <code>-Xmx</code>和<code>-Xms</code>)，如果堆中没有内存内存完成实例分配，而且堆无法扩展将报OOM错误(OutOfMemoryError)</p>
+</blockquote>
+<p>新生代又分为：<code>Eden</code>空间、<code>From Survivor</code>、<code>To Survivor</code>空间。进一步划分的目的是更好地回收内存，或者更快地分配内存。</p>
+<p><strong>分代回收</strong>的原因：<strong>对象的生命周期不同</strong>，所以针对不同生命周期的对象可以采取不同的回收方式，以便提高回收效率。从内存分配的角度来看，线程共享的java堆中可能会划分出<strong>多个线程私有的分配缓冲区</strong>。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200325221303109.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70"></p>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><h4 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h4><p><strong>标记-清除</strong>是最基本的回收算法，后面的算法的设计的思想都是基于此算法进行设计。标记-清除算法一共分为两个阶段<strong>标记</strong>和<strong>清除</strong>阶段，标记阶段是将不可达的对象（即为不存活的对象）进行标记，接着清除阶段将这些标记的对象进行清除。<br><img src="https://img-blog.csdnimg.cn/20200325230313475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70"><br>标记-清除算法主要有<strong>两个问题</strong>：一个是<strong>效率的问题</strong>，标记和清除两个过程效率都不高；另一个问题就是该算法会<strong>产生很多的内存碎片</strong>，大量的不连续内存空间，当程序需要申请较大的内存空间存储大对象的时候，有可能无法申请到足够的内存空间而不得不再一次触发一次垃圾回收动作。</p>
+<h4 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h4><p>复制算法将<strong>内存划分为两个区间</strong>，在任意时间点，所有动态分配的对象都只能分配在其中一个区间（<strong>称为活动区间</strong>），而另外一个区间（<strong>称为空闲区间</strong>）则是空闲的。</p>
+<p>当有效内存空间耗尽时，JVM将暂停程序运行，开启复制算法GC线程。接下来GC线程会将活动区间内的存活对象，全部复制到空闲区间，且严格按照内存地址依次排列，与此同时，GC线程将更新存活对象的内存引用地址指向新的内存地址。</p>
+<p>此时，空闲区间已经与活动区间交换，而垃圾对象现在已经全部留在了原来的活动区间，也就是现在的空闲区间。事实上，在活动区间转换为空间区间的同时，垃圾对象已经被一次性全部回收。<br><img src="https://img-blog.csdnimg.cn/20200325230339182.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70"></p>
+<p>新生代中因为对象都是”朝生夕死的”，深入理解JVM虚拟机上说98%的对象存活率很低，适用于复制算法，复制算法比较适合用于存活率低的内存区域。它优化了标记/清除算法的效率和内存碎片问题。</p>
+<p>JVM不是平分内存，新生代中由于存活率低，不需要复制保留那么大的区域造成空间上的浪费，因此不需要按1:1划分内存区域，而是将内存分为一块Eden空间和From Survivor、To Survivor【保留空间】。</p>
+<p>（1）新生代：大多数对象在新生代中被创建，其中很多对象的生命周期很短。每次新生代的垃圾回收（又称<strong>Minor GC</strong>）后只有少量对象存活，所以选用<strong>复制算法</strong>，只需要少量的复制成本就可以完成回收。</p>
+<blockquote>
+<p>在新生代内存中每次只是用Eden和其中的一个S区。当Eden区满时，还存活的对象将被复制到两个<code>Survivor区</code>中的一个。当这个Survivor区满时，此区的存活且不满足“晋升”条件的对象将被复制到另外一个Survivor区。</p>
+</blockquote>
+<blockquote>
+<p>对象每经历一次<code>Minor GC</code>，年龄加1，达到“晋升年龄阈值”后，被放到老年代，这个过程也称为“晋升”。显然，“晋升年龄阈值”的大小直接影响着对象在新生代中的停留时间，在<code>Serial</code>和<code>ParNew GC</code>两种回收器中，“晋升年龄阈值”通过参数<code>MaxTenuringThreshold</code>设定，默认值为15。</p>
+</blockquote>
+<p>（2）老年代：在新生代中经历了N次垃圾回收后仍然存活的对象，就会被放到年老代，该区域中对象存活率高。老年代的垃圾回收（又称<strong>Major GC</strong>）通常使用<strong>标记-清理</strong>或<strong>标记-整理</strong>算法。整堆包括新生代和老年代的垃圾回收称为<strong>Full GC</strong>。</p>
+<p>（3）永久代：主要存放元数据，例如<code>Class</code>、<code>Method</code>的元信息，与垃圾回收要回收的Java对象关系不大。相对于新生代和年老代来说，该区域的划分对垃圾回收影响比较小。在 <strong>JDK 1.8中移除整个永久代</strong>，取而代之的是一个叫<strong>元空间</strong>的区域。</p>
+<blockquote>
+<p>默认的Eden : from : to = 8 : 1 : 1 ( 可以通过参数 –XX:SurvivorRatio 来设定 )，即： Eden = 8/10 的新生代空间大小，from = to = 1/10 的新生代空间大小。</p>
+</blockquote>
+<p>在新生代中，并不是每次存活的对象都少于10%，有时候若是存活的对象大于10%，就会想老年代进行<strong>空间分配担保</strong>。</p>
+<h4 id="标记-整理"><a href="#标记-整理" class="headerlink" title="标记-整理"></a>标记-整理</h4><p>标记-整理算法也分为两步，首先标记不可达的对象，然后存活的对象往一端移动，然后直接清理掉端边界以外的内存。</p>
+<p>老年代中存活率比较高，要是使用复制算法，会大量浪费时间在复制对象上，因此复制算法不适合用在存活率比较高的场景。<br><img src="https://img-blog.csdnimg.cn/20200325231111199.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjU1MDE3,size_16,color_FFFFFF,t_70"><br>标记的存活对象将会被整理，按照<strong>内存地址依次排列</strong>，而未被标记的内存会被清理掉。如此一来，当我们需要给新对象分配内存时，JVM只需要持有一个<strong>内存的起始地址</strong>即可，这比维护一个空闲列表显然少了许多开销。</p>
+<p>不难看出，标记/整理算法不仅可以弥补标记/清除算法当中，内存区域分散的缺点，也消除了复制算法当中，内存减半的高额代价。</p>
+<p>不过任何算法都会有其缺点，标记/整理算法唯一的缺点就是效率也不高，不仅要标记所有存活对象，还要整理所有存活对象的引用地址。从效率上来说，<strong>标记/整理算法要低于复制算法</strong>。</p>
+<blockquote>
+<p>关于JVM深入研究以及JVM调优，后面的文章会继续深入，这篇文章先介绍JVM的内存模型，以及回收算法。</p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://example.com/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/">http://example.com/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>黎杜</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2020-10-14</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2020-10-14</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2020/10/14/JAVA%20%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%AE%8C%E6%95%B4%E5%A5%97%E8%B7%AF%EF%BC%8C%E4%BB%8E%20CPU%E3%80%81%E7%A3%81%E7%9B%98%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E7%BD%91%E7%BB%9C%E3%80%81GC%20%E4%B8%80%E6%9D%A1%E9%BE%99%EF%BC%81/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2020/10/14/%E5%9B%BE%E7%89%87%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B-%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2020/10/14/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82TCP-IP%E5%92%8CHTTP%E3%80%81HTTPS/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2020/10/14/%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91Redis%E5%86%85%E5%AD%98%E6%BB%A1%E4%BA%86%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%E4%BA%86/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2020/10/14/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90AQS%E5%92%8CCAS%EF%BC%8C%E7%9C%8B%E4%BA%86%E9%83%BD%E8%AF%B4%E5%A5%BD/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2020/10/14/Java%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%92%8CCglib%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%9C%80%E5%BC%BA%E7%8E%8B%E8%80%85%E9%98%B5%E5%AE%B9/" target="_blank"> </a><br></span><span>  7.<a class="is-size-6" href="/2020/10/14/%E4%BD%A0%E8%A6%81%E7%9A%84Mysql%E4%BC%98%E5%8C%96%E6%8F%90%E9%AB%98%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86%EF%BC%8C%E6%9D%A5%E8%87%AA%E4%BA%8E%E4%B8%80%E4%BD%8D%E5%A4%A7%E4%BD%AC%E7%9A%84%E7%AC%94%E8%AE%B0/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2020/10/14/%E9%9D%A2%E8%AF%95%E5%AE%98%EF%BC%9A%E5%90%AC%E8%AF%B4%E4%BD%A0sql%E5%86%99%E7%9A%84%E6%8C%BA%E6%BA%9C%E7%9A%84%EF%BC%8C%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4%E6%9F%A5%E8%AF%A2sql%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E3%80%82/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/10/14/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82TCP-IP%E5%92%8CHTTP%E3%80%81HTTPS/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/10/14/%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91Redis%E5%86%85%E5%AD%98%E6%BB%A1%E4%BA%86%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%E4%BA%86/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: '黎杜',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["removeif"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://pic1.zhimg.com/v2-bfd9b8d48b2d2ef0bcd80d2cc4cc6604_xl.jpg" alt="黎杜"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">黎杜</p><p class="is-size-6 is-block">一个钻研技术和热爱分享的博主</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>广东.广州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/u/2084518621?is_all=1"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/730500468@qq.com"><i class="fa fa-envelope"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Latest Comment</h3><span class="body_hot_comment">Loading...Wait a Minute!</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-14T10:04:30.012Z">2020-10-14</time></p><p class="title"><a href="/2020/10/14/JAVA%20%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%E5%AE%8C%E6%95%B4%E5%A5%97%E8%B7%AF%EF%BC%8C%E4%BB%8E%20CPU%E3%80%81%E7%A3%81%E7%9B%98%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E7%BD%91%E7%BB%9C%E3%80%81GC%20%E4%B8%80%E6%9D%A1%E9%BE%99%EF%BC%81/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-14T10:04:20.188Z">2020-10-14</time></p><p class="title"><a href="/2020/10/14/%E5%9B%BE%E7%89%87%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B-%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-14T10:01:35.526Z">2020-10-14</time></p><p class="title"><a href="/2020/10/14/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82TCP-IP%E5%92%8CHTTP%E3%80%81HTTPS/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-14T10:01:31.281Z">2020-10-14</time></p><p class="title"><a href="/2020/10/14/%E8%BF%98%E5%9C%A8%E5%AD%A6JVM%EF%BC%9F%E6%88%91%E9%83%BD%E5%B8%AE%E4%BD%A0%E6%80%BB%E7%BB%93%E5%A5%BD%E4%BA%86%EF%BC%88%E9%99%84%E8%84%91%E5%9B%BE%EF%BC%89/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2020-10-14T10:01:28.566Z">2020-10-14</time></p><p class="title"><a href="/2020/10/14/%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91Redis%E5%86%85%E5%AD%98%E6%BB%A1%E4%BA%86%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%E4%BA%86/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="非科班的科班" height="28"></a><p class="size-small"><span>&copy; 2020 黎杜</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">川ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2018/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'folded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','黎杜','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','黎杜','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
